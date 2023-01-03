@@ -1,23 +1,16 @@
 {
-  "name": "express-zip",
-  "version": "1.0.0",
-  "description": "nodeJS express 서버에서 할 수 있는 세팅, 기능 구현을 전부 담고자 만든 레포입니다.",
-  "main": "index.js",
+  "name": "node-express-zip",
+  "version": "0.0.0",
+  "private": true,
   "scripts": {
-    "start": "node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node ./bin/www"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/siri-syl/node-express-zip.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/siri-syl/node-express-zip/issues"
-  },
-  "homepage": "https://github.com/siri-syl/node-express-zip#readme",
   "dependencies": {
-    "express": "^4.18.2"
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "express": "~4.16.1",
+    "http-errors": "~1.6.3",
+    "jade": "~1.11.0",
+    "morgan": "~1.9.1"
   }
 }

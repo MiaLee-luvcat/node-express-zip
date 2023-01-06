@@ -3,6 +3,9 @@ const express = require('express')
 const cookieParser = require('cookie-parser')
 const morgan = require('morgan')
 
+//* internal
+const validator = require('./utils/validator')
+
 //* variable
 const port = 3000
 
@@ -19,9 +22,10 @@ app.get('/', (req, res) => {
   return res.status(404).send('')
 })
 
-app.get('/siri', (req, res) => {
-  if(!req.query?.input) return res.status(200).send(`Input query 'input'!  example: localhost:3000/siri?input=ok`)
-  return res.status(200).send(`query.input is ${ req.query?.input }`)
+app.get('/siri', async (req, res) => {
+  const { input } = await validator.query.validateAsync(req.query)
+
+  return res.status(200).send(`query.input is ${ input }`)
 })
 
 app.use((req, res, next) => { //* 없는 라우터 분기 404 처리 부분

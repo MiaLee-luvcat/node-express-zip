@@ -1,5 +1,6 @@
 //* external
 const express = require('express')
+const path = require('path')
 const cookieParser = require('cookie-parser')
 const morgan = require('morgan')
 
@@ -7,16 +8,25 @@ const morgan = require('morgan')
 const { errorHandler } = require('./middleware/errorHandler')
 const validator = require('./utils/validator')
 
+//* internal - routes
+const mypageRouter = require('./routes/mypage')
+
 //* variable
 const port = 3000
 
 const app = express()
+
+//* view engine setup
+app.set('views', path.join(__dirname, 'views'))
+app.set('view engine', 'jade')
 
 app.use(cookieParser())
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
 app.use(morgan('dev'))
+
+app.use('/mypage', mypageRouter)
 
 //* 서버 도메인을 들키면 안 되므로 아예 404로 넘김
 app.get('/', (req, res) => {

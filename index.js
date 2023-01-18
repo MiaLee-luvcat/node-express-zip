@@ -26,6 +26,15 @@ app.use(express.urlencoded({ extended: true }))
 
 app.use(morgan('dev'))
 
+const models = require('./models/index.js')
+
+models.sequelize.sync().then( () => {
+  console.log('DB 연결 성공')
+}).catch(err => {
+  console.log('연결 실패')
+  console.log(err)
+})
+
 app.use('/mypage', mypageRouter)
 
 //* 서버 도메인을 들키면 안 되므로 아예 404로 넘김

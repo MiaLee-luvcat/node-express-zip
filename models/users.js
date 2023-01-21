@@ -24,7 +24,7 @@ module.exports = function (sequelize, DataTypes) {
     lastLogin: {
       field: 'lastLogin',
       type: DataTypes.BIGINT,
-      allowNull: false
+      allowNull: true
     }
   }, {
     underscored: true,

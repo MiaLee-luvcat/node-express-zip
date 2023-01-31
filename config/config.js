@@ -7,7 +7,8 @@ module.exports = {
     'database': process.env.MYSQL_DATABASE_NAME || 'siri',
     'host': process.env.MYSQL_DATABASE_HOST || '127.0.0.1',
     'port': process.env.MYSQL_DATABASE_PORT || '3306',
-    'dialect': 'mysql'
+    'dialect': 'mysql',
+    'logging': false
   },
   'test': {
     'username': 'root',

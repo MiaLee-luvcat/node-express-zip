@@ -35,6 +35,9 @@ models.sequelize.sync().then( () => {
   console.log(err)
 })
 
+let a = 1
+global.b = a
+
 app.use('/mypage', mypageRouter)
 
 //* 서버 도메인을 들키면 안 되므로 아예 404로 넘김

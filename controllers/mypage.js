@@ -6,6 +6,7 @@ const { cl } = require('./helper')
 
 const get = async (req, res, next) => {
   try {
+    cl('b=', a)
     res.render('index', { title: 'Express mypage' })
   }
   catch (err) {

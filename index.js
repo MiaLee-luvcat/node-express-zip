@@ -4,6 +4,7 @@ const path = require('path')
 const cookieParser = require('cookie-parser')
 const morgan = require('morgan')
 const NodeCache = require('node-cache')
+const rateLimit = require('express-rate-limit')
 
 //* internal
 const { errorHandler } = require('./middleware/errorHandler')
@@ -36,6 +37,26 @@ models.sequelize.sync().then( () => {
   console.log('연결 실패')
   console.log(err)
 })
+
+//* [start] 시간당 요청 제한
+const limiter = rateLimit({
+  max                   : 5, // Limit each IP to 6 requests per `window` (here, per 1 min)
+  windowMs              : 60 * 1000, // 1분
+  legacyHeaders         : false, // Disable the `X-RateLimit-*` headers
+  standardHeaders       : true, // Return rate limit info in the `RateLimit-*` headers
+  skipSuccessfulRequests: true,
+  requestWasSuccessful  : (request, response) => response.statusCode < 400,
+  // handler: async function (req, res, /*next*/) {
+  //   limitIps.create({ ip: requestIp.getClientIp(req) })
+  //   return res.status(429).json({ error: 'You sent too many requests. Please wait a while then try again' })
+  // },
+  async handler(req, res, /*next*/) {
+    return res.status(429).json({ message: 'Thank U for your interest' })
+  },
+})
+
+app.use(limiter)
+//* [end] 시간당 요청 제한
 
 let a = 1
 global.b = a

@@ -58,8 +58,6 @@ const limiter = rateLimit({
 app.use(limiter)
 //* [end] 시간당 요청 제한
 
-let a = 1
-global.b = a
 
 app.use('/mypage', mypageRouter)
 

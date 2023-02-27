@@ -10,7 +10,7 @@ var WebSocketServer = require('ws').Server,
     port,
   },
   wss = new WebSocketServer(config, function () {
-    console.log(`Waiting for ${CLIENTS_TO_WAIT_FOR} clients to connect..`)
+    console.log(`Waiting for ${ CLIENTS_TO_WAIT_FOR } clients to connect..`)
   })
 
 var clients = []
@@ -20,12 +20,12 @@ wss.on('connection', function (ws, { url }) {
     'name'
   )
   console.log(
-    `${name} connected (${CLIENTS_TO_WAIT_FOR - clients.length} remain)`
+    `${ name } connected (${ CLIENTS_TO_WAIT_FOR - clients.length } remain)`
   )
   clients.push(ws)
 
   ws.on('message', function (message) {
-    const out = `${name}: ${message}`
+    const out = `${ name }: ${ message }`
     for (let client of clients) {
       client.send(out)
     }

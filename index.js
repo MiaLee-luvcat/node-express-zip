@@ -5,6 +5,7 @@ const cookieParser = require('cookie-parser')
 const morgan = require('morgan')
 const NodeCache = require('node-cache')
 const rateLimit = require('express-rate-limit')
+const { JsonDB, Config } = require('node-json-db')
 
 //* internal
 const { errorHandler } = require('./middleware/errorHandler')
@@ -16,6 +17,7 @@ const mypageRouter = require('./routes/mypage')
 //* variable
 const port = 3000
 const myCache = new NodeCache()
+const db = new JsonDB(new Config('myDataBase', true, false, '/'))
 
 const app = express()
 
@@ -70,6 +72,22 @@ app.get('/siri', async (req, res, next) => {
   catch(err) {
     next(err)
   }  
+})
+
+app.get('/ssy', async(req, res, next) => {
+  try {
+    await db.push('/test1', ['super test2'], false)
+
+    //* Get the data from the root
+    const data = await db.getData('/')
+
+    //* Or from a particular DataPath
+    const data2 = await db.getData('/test1')
+    return res.status(200).json({ data, data2 })
+  }
+  catch(err) {
+    next(err)
+  }
 })
 
 //* 서버 도메인을 들키면 안 되므로 아예 404로 넘김
